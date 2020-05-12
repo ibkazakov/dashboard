@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: dashboard-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dashboard
+    platform: POSTGRESQL
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+
+server:
+  port: 8999
+  servlet:
+    context-path: /dashboard
