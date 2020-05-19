@@ -11,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
     generate-ddl: true
     show-sql: true

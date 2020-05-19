@@ -1,13 +1,17 @@
-package com.dashboard.dashboard.metrics;
+package com.dashboard.dashboard.metadata.metrics;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Metric {
     @Id
     @GeneratedValue
@@ -22,5 +26,8 @@ public class Metric {
 
     @OneToMany(mappedBy = "metric", cascade = CascadeType.ALL)
     private Set<MetricComponent> components;
+
+    @OneToMany(mappedBy = "metric", cascade = CascadeType.ALL)
+    private Set<MetricParameter> parameters;
 
 }

@@ -1,6 +1,6 @@
-package com.dashboard.dashboard.repositories;
+package com.dashboard.dashboard.metadata.repositories;
 
-import com.dashboard.dashboard.metrics.Metric;
+import com.dashboard.dashboard.metadata.metrics.Metric;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

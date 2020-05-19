@@ -1,11 +1,16 @@
-package com.dashboard.dashboard.metrics;
+package com.dashboard.dashboard.metadata.metrics;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class MetricComponent {
     @Id
     @GeneratedValue
@@ -21,6 +26,6 @@ public class MetricComponent {
     private MetricComponentType metricComponentType;
 
     @ManyToOne
-    @JoinColumn(name = "metric_id", nullable = false)
+    @JoinColumn(name = "metric_id")
     private Metric metric;
 }
