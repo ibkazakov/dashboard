@@ -1,5 +1,8 @@
 package com.dashboard.dashboard.metadata.web.controller;
 
+import com.dashboard.dashboard.metadata.service.MetricParameterService;
+import com.dashboard.dashboard.metadata.service.MetricParameterValueService;
+import com.dashboard.dashboard.metadata.service.MetricService;
 import com.dashboard.dashboard.metadata.web.dto.MetricParameterDTO;
 import com.dashboard.dashboard.metadata.web.dto.MetricParameterValueDTO;
 import com.dashboard.dashboard.metadata.web.dto.mapper.MetricParameterMapper;
@@ -7,9 +10,6 @@ import com.dashboard.dashboard.metadata.web.dto.mapper.MetricParameterValueMappe
 import com.dashboard.dashboard.metadata.dao.entity.Metric;
 import com.dashboard.dashboard.metadata.dao.entity.MetricParameter;
 import com.dashboard.dashboard.metadata.dao.entity.MetricParameterValue;
-import com.dashboard.dashboard.metadata.service.MetricParameterService;
-import com.dashboard.dashboard.metadata.service.MetricParameterValueService;
-import com.dashboard.dashboard.metadata.service.MetricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +37,7 @@ public class MetricParameterController {
     @GetMapping("qmetrics/{id}/parameters")
     public List<MetricParameterDTO> getMetricParameters(@PathVariable Long id) {
         List<MetricParameterDTO> parameterDTOList = new ArrayList<>();
-        metricParameterService.allParameters().forEach(new Consumer<MetricParameter>() {
+        metricParameterService.getMetricParameters(id).forEach(new Consumer<MetricParameter>() {
             @Override
             public void accept(MetricParameter parameter) {
                 parameterDTOList.add(parameterMapper.toDTO(parameter));

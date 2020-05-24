@@ -1,9 +1,10 @@
 package com.dashboard.dashboard.metadata.web.controller;
 
+import com.dashboard.dashboard.metadata.service.MetricComponentTypeService;
 import com.dashboard.dashboard.metadata.web.dto.MetricComponentTypeDTO;
 import com.dashboard.dashboard.metadata.web.dto.mapper.MetricComponentTypeMapper;
 import com.dashboard.dashboard.metadata.dao.entity.MetricComponentType;
-import com.dashboard.dashboard.metadata.service.MetricComponentTypeService;
+import com.dashboard.dashboard.metadata.service.impl.MetricComponentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

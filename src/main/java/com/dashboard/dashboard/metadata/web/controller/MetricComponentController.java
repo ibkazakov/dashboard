@@ -1,11 +1,11 @@
 package com.dashboard.dashboard.metadata.web.controller;
 
+import com.dashboard.dashboard.metadata.service.MetricComponentService;
 import com.dashboard.dashboard.metadata.web.dto.MetricComponentDTO;
 import com.dashboard.dashboard.metadata.web.dto.mapper.MetricComponentMapper;
 import com.dashboard.dashboard.metadata.dao.entity.Metric;
 import com.dashboard.dashboard.metadata.dao.entity.MetricComponent;
-import com.dashboard.dashboard.metadata.service.MetricComponentService;
-import com.dashboard.dashboard.metadata.service.MetricService;
+import com.dashboard.dashboard.metadata.service.impl.MetricServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ public class MetricComponentController {
     private MetricComponentService metricComponentService;
 
     @Autowired
-    private MetricService metricService;
+    private MetricServiceImpl metricService;
 
     @GetMapping("qmetrics/{id}/components")
     public List<MetricComponentDTO> getMetricComponents(@PathVariable Long id) {

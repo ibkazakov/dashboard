@@ -1,9 +1,10 @@
 package com.dashboard.dashboard.metadata.web.controller;
 
+import com.dashboard.dashboard.metadata.service.MetricService;
 import com.dashboard.dashboard.metadata.web.dto.MetricDTO;
 import com.dashboard.dashboard.metadata.web.dto.mapper.MetricMapper;
 import com.dashboard.dashboard.metadata.dao.entity.Metric;
-import com.dashboard.dashboard.metadata.service.MetricService;
+import com.dashboard.dashboard.metadata.service.impl.MetricServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,6 @@ public class MetricController {
 
     @Autowired
     private MetricMapper metricMapper;
-
 
     @GetMapping("qmetrics/{id}")
     public MetricDTO getMetricById(@PathVariable Long id) {
