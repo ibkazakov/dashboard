@@ -1,18 +1,12 @@
 package com.dashboard.dashboard.metadata.service;
 
-import com.dashboard.dashboard.metadata.dto.MetricComponentDTO;
-import com.dashboard.dashboard.metadata.mapper.MetricComponentMapper;
-import com.dashboard.dashboard.metadata.metrics.MetricComponent;
-import com.dashboard.dashboard.metadata.metrics.MetricComponentType;
-import com.dashboard.dashboard.metadata.repositories.MetricComponentRepository;
-import com.dashboard.dashboard.metadata.repositories.MetricRepository;
+import com.dashboard.dashboard.metadata.dao.entity.Metric;
+import com.dashboard.dashboard.metadata.dao.entity.MetricComponent;
+import com.dashboard.dashboard.metadata.dao.repository.MetricComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Consumer;
+import java.util.*;
 
 @Service
 public class MetricComponentService {
@@ -22,44 +16,36 @@ public class MetricComponentService {
     @Autowired
     private MetricComponentTypeService metricComponentTypeService;
 
+    @Autowired
+    private MetricService metricService;
 
-    public MetricComponent createComponent(String name,
-                                              Long type_id) {
-        MetricComponent metricComponent
-                = new MetricComponent();
-        metricComponent.setName(name);
+
+    public MetricComponent createComponent(MetricComponent metricComponent) {
         String ident = UUID.randomUUID().toString();
         metricComponent.setIdent(ident);
-
-        MetricComponentType type =
-                metricComponentTypeService.getTypeById(type_id);
-
-
-        metricComponent.setMetricComponentType(type);
         metricComponentRepository.save(metricComponent);
         return metricComponent;
     }
 
-    public MetricComponent getComponentById(Long id) {
-        return metricComponentRepository.findById(id).get();
+    public List<MetricComponent> getMetricComponents(Long metric_id) {
+        Metric metric = metricService.getMetricById(metric_id);
+        return metric.getComponents();
     }
 
-    public Set<MetricComponent> allComponents() {
-        Set<MetricComponent> components = new HashSet<>();
-        metricComponentRepository.findAll().forEach(new Consumer<MetricComponent>() {
-            @Override
-            public void accept(MetricComponent component) {
-                components.add(component);
-            }
-        });
-        return components;
-    }
-
-    public void updateComponent(MetricComponent component) {
+    public MetricComponent updateComponent(MetricComponent component) {
+        // ident and bind to the metric should be preserved
+        MetricComponent original = metricComponentRepository.getOne(component.getId());
+        component.setIdent(original.getIdent());
+        component.setMetric(original.getMetric());
         metricComponentRepository.save(component);
+        return component;
     }
 
-    public void deleteComponent(Long id) {
+    public boolean isComponentPresent(Long id) {
+        return metricComponentRepository.existsById(id);
+    }
+
+    public void deleteComponentById(Long id) {
         metricComponentRepository.deleteById(id);
     }
 }

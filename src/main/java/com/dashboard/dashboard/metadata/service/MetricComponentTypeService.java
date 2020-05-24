@@ -1,13 +1,11 @@
 package com.dashboard.dashboard.metadata.service;
 
-import com.dashboard.dashboard.metadata.metrics.MetricComponentType;
-import com.dashboard.dashboard.metadata.repositories.MetricComponentTypeRepository;
+import com.dashboard.dashboard.metadata.dao.entity.MetricComponentType;
+import com.dashboard.dashboard.metadata.dao.repository.MetricComponentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Service
@@ -17,28 +15,26 @@ public class MetricComponentTypeService {
             metricComponentTypeRepository;
 
 
-    public MetricComponentType createType(String name) {
-        MetricComponentType componentType = new MetricComponentType();
-        componentType.setName(name);
+    public MetricComponentType createType(MetricComponentType componentType) {
         String ident = UUID.randomUUID().toString();
         componentType.setIdent(ident);
         metricComponentTypeRepository.save(componentType);
         return componentType;
     }
 
-    public Set<MetricComponentType> allTypes() {
-        Set<MetricComponentType> componentTypeSet
-                = new HashSet<>();
+    public List<MetricComponentType> getAllTypes() {
+        List<MetricComponentType> componentTypeList
+                = new ArrayList<>();
         metricComponentTypeRepository.findAll().forEach(new Consumer<MetricComponentType>() {
             @Override
             public void accept(MetricComponentType metricComponentType) {
-                componentTypeSet.add(metricComponentType);
+                componentTypeList.add(metricComponentType);
             }
         });
-        return componentTypeSet;
+        return componentTypeList;
     }
 
-    public void deleteType(Long id) {
+    public void deleteTypeById(Long id) {
         metricComponentTypeRepository.deleteById(id);
     }
 
